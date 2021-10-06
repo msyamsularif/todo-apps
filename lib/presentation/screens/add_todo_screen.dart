@@ -18,6 +18,14 @@ class AddTodoScreen extends StatelessWidget {
             if (state is TodoAdded) {
               Navigator.pop(context);
               return;
+            } else if (state is AddTodoError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("${state.error}"),
+                  backgroundColor: Colors.red,
+                  duration: const Duration(seconds: 3),
+                ),
+              );
             }
           },
           child: Container(

@@ -43,7 +43,7 @@ class TodosScreen extends StatelessWidget {
 
   Widget _todos(Todo todo, BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, editTodoRoute),
+      onTap: () => Navigator.pushNamed(context, editTodoRoute, arguments: todo),
       child: Dismissible(
         key: Key(todo.id),
         child: _todoTile(context, todo),

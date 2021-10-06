@@ -25,4 +25,8 @@ class Repository {
 
     return Todo.formJson(todoMap);
   }
+
+  Future<bool> deleteTodo(String id) async{
+    return await networkService!.deleteTodo(id);
+  }
 }
