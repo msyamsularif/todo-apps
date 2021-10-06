@@ -1,10 +1,10 @@
 class Todo {
   late String todoMessage;
-  late String isCompleted;
-  late int id;
+  late bool isCompleted;
+  late String id;
 
   Todo.formJson(Map json)
       : todoMessage = json["todo"],
-        isCompleted = json["isCompleted"],
-        id = json["id"] as int;
+        isCompleted = json["isCompleted"] == "true",
+        id = json["id"];
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:todo_apps/data/models/todo.dart';
@@ -14,8 +16,39 @@ class TodosCubit extends Cubit<TodosState> {
   }) : super(TodosInitial());
 
   void fetchTodos() {
-    repository.fetchTodos().then((todos) {
-      emit(TodosLoaded(todos: todos));
+    Timer(const Duration(seconds: 3), () {
+      repository.fetchTodos().then((todos) {
+        emit(TodosLoaded(todos: todos));
+      });
     });
+  }
+
+  void changeCompletion(Todo todo) {
+    repository
+        .changeCompletion(!todo.isCompleted, todo.id)
+        .then((isChanged) => {
+              if (isChanged)
+                {
+                  todo.isCompleted = !todo.isCompleted,
+                  updateTodoList(),
+                }
+            });
+  }
+
+  void updateTodoList() {
+    final currentState = state;
+    if (currentState is TodosLoaded) {
+      emit(TodosLoaded(todos: currentState.todos));
+    }
+  }
+
+  void addTodo(Todo todo) {
+    final currentState = state;
+    if (currentState is TodosLoaded) {
+      final todoList = currentState.todos;
+      todoList!.add(todo);
+
+      emit(TodosLoaded(todos: todoList));
+    }
   }
 }
