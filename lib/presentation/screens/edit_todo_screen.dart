@@ -63,7 +63,7 @@ class EditTodoScreen extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              BlocProvider.of<EditTodoCubit>(context).updateTodo(todo);
+              BlocProvider.of<EditTodoCubit>(context).updateTodo(todo, controller.text);
             },
             child: _updateBtn(context),
           ),

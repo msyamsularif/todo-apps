@@ -29,4 +29,9 @@ class Repository {
   Future<bool> deleteTodo(String id) async{
     return await networkService!.deleteTodo(id);
   }
+
+  Future<bool> updateTodo(String message, String id) async{
+    final patchObj = {"todo": message};
+    return await networkService!.patchTodo(patchObj, id);
+  }
 }
